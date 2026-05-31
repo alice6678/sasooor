@@ -1,0 +1,1106 @@
+
+html_code = '''<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ta3liii9a — بوستيرات فاخرة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: #050505;
+  color: #f0f0f0;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== NOISE TEXTURE OVERLAY ===== */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+}
+.noise-overlay svg { width: 100%; height: 100%; }
+
+/* ===== CUSTOM CURSOR ===== */
+.custom-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 10000;
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: #e8c87a;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background 0.3s;
+}
+.cursor-ring {
+  width: 40px; height: 40px;
+  border: 1.5px solid rgba(232,200,122,0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s cubic-bezier(0.23,1,0.32,1), height 0.4s cubic-bezier(0.23,1,0.32,1), border-color 0.3s, transform 0.15s ease-out;
+}
+.custom-cursor.hovering .cursor-dot {
+  width: 16px; height: 16px;
+  background: #ff4d6d;
+}
+.custom-cursor.hovering .cursor-ring {
+  width: 60px; height: 60px;
+  border-color: #ff4d6d;
+}
+
+/* ===== HORIZONTAL SCROLL CONTAINER ===== */
+.horizontal-scroll-container {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100vh;
+  width: max-content;
+  will-change: transform;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  flex-shrink: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* ===== HERO SECTION ===== */
+.hero-section {
+  width: 100vw;
+  background: #050505;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(232,200,122,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(255,77,109,0.05) 0%, transparent 60%),
+    linear-gradient(135deg, #050505 0%, #0a0a0a 50%, #050505 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+.hero-badge {
+  display: inline-block;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e8c87a;
+  letter-spacing: 3px;
+  border: 1px solid rgba(232,200,122,0.3);
+  padding: 8px 24px;
+  border-radius: 100px;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  background: rgba(232,200,122,0.05);
+}
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.9;
+  letter-spacing: 4px;
+  color: #f5f5f5;
+  text-shadow: 0 0 60px rgba(232,200,122,0.15), 0 0 120px rgba(255,77,109,0.08);
+  margin-bottom: 1rem;
+}
+.hero-title span {
+  display: block;
+  background: linear-gradient(135deg, #e8c87a 0%, #ff4d6d 50%, #e8c87a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-subtitle {
+  font-family: 'Tajawal', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  color: rgba(240,240,240,0.6);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #050505;
+  background: linear-gradient(135deg, #e8c87a 0%, #d4b060 100%);
+  padding: 16px 40px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 8px 32px rgba(232,200,122,0.25);
+}
+.hero-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(232,200,122,0.4);
+}
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(240,240,240,0.3);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  animation: floatHint 2s ease-in-out infinite;
+}
+@keyframes floatHint {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8px); }
+}
+.hero-scroll-hint .arrow {
+  width: 24px; height: 24px;
+  border-right: 2px solid rgba(232,200,122,0.4);
+  border-bottom: 2px solid rgba(232,200,122,0.4);
+  transform: rotate(-45deg);
+}
+
+/* ===== FEATURES SECTION ===== */
+.features-section {
+  width: 60vw;
+  min-width: 600px;
+  background: #0a0a0a;
+  padding: 0 4rem;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 700px;
+}
+.feature-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #e8c87a, transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.feature-card:hover::before { opacity: 1; }
+.feature-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(232,200,122,0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(232,200,122,0.05);
+}
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.feature-title {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #f5f5f5;
+  margin-bottom: 0.5rem;
+}
+.feature-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: rgba(240,240,240,0.5);
+  line-height: 1.6;
+}
+
+/* ===== GALLERY SECTION ===== */
+.gallery-section {
+  width: auto;
+  min-width: 100vw;
+  background: #050505;
+  padding: 0 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.gallery-header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.gallery-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #f5f5f5;
+  letter-spacing: 3px;
+  margin-bottom: 1.5rem;
+}
+.gallery-header h2 span {
+  color: #e8c87a;
+}
+.filter-tabs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 28px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
+  color: rgba(240,240,240,0.6);
+  cursor: none;
+  transition: all 0.3s;
+}
+.filter-btn.active, .filter-btn:hover {
+  background: rgba(232,200,122,0.1);
+  border-color: #e8c87a;
+  color: #e8c87a;
+}
+.gallery-track {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+/* ===== POSTER CARD ===== */
+.poster-card {
+  width: 320px;
+  flex-shrink: 0;
+  perspective: 1000px;
+  cursor: none;
+}
+.poster-card-inner {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #121212;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.1s ease-out, box-shadow 0.4s;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.poster-card:hover .poster-card-inner {
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(232,200,122,0.08);
+}
+.poster-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #0d0d0d;
+}
+.poster-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+.poster-card:hover .poster-image-wrap img {
+  transform: scale(1.08);
+}
+.poster-new-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, #ff4d6d, #c9184a);
+  color: #fff;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 100px;
+  letter-spacing: 1px;
+  z-index: 3;
+  box-shadow: 0 4px 20px rgba(255,77,109,0.4);
+}
+.poster-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.3) 40%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+  z-index: 2;
+}
+.poster-card:hover .poster-overlay { opacity: 1; }
+.poster-overlay-text {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(240,240,240,0.8);
+  line-height: 1.6;
+}
+.poster-info {
+  padding: 1.5rem;
+}
+.poster-cat {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e8c87a;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+.poster-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: #f5f5f5;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+.poster-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: #ff4d6d;
+  letter-spacing: 1px;
+}
+.poster-price span {
+  font-size: 0.9rem;
+  color: rgba(240,240,240,0.4);
+  font-family: 'Tajawal', sans-serif;
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact-section {
+  width: 60vw;
+  min-width: 500px;
+  background: #0a0a0a;
+  padding: 0 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.contact-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #f5f5f5;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+.contact-section h2 span { color: #e8c87a; }
+.contact-desc {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: rgba(240,240,240,0.5);
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+.contact-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.contact-btn.whatsapp {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(37,211,102,0.25);
+}
+.contact-btn.whatsapp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(37,211,102,0.4);
+}
+.contact-btn.instagram {
+  background: linear-gradient(135deg, #e1306c, #f77737, #fcaf45);
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(225,48,108,0.25);
+}
+.contact-btn.instagram:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(225,48,108,0.4);
+}
+
+/* ===== FOOTER SECTION ===== */
+.footer-section {
+  width: 40vw;
+  min-width: 350px;
+  background: #050505;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 3rem;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: #e8c87a;
+  letter-spacing: 4px;
+  margin-bottom: 1rem;
+}
+.footer-tagline {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: rgba(240,240,240,0.4);
+  margin-bottom: 2rem;
+}
+.footer-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4rem;
+  color: #ff4d6d;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.footer-price-label {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(240,240,240,0.5);
+  margin-bottom: 2rem;
+}
+.footer-copy {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(240,240,240,0.25);
+  letter-spacing: 1px;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,5,5,0.92);
+  backdrop-filter: blur(20px);
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-content {
+  background: #121212;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  max-width: 900px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  transform: scale(0.9) translateY(30px);
+  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 80px rgba(232,200,122,0.05);
+}
+.modal-overlay.active .modal-content {
+  transform: scale(1) translateY(0);
+}
+.modal-image {
+  width: 50%;
+  min-height: 400px;
+  background: #0d0d0d;
+  position: relative;
+}
+.modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modal-details {
+  width: 50%;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.modal-cat {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #e8c87a;
+  letter-spacing: 2px;
+  margin-bottom: 0.75rem;
+}
+.modal-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: #f5f5f5;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+.modal-desc {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(240,240,240,0.6);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+.modal-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: #ff4d6d;
+  margin-bottom: 2rem;
+}
+.modal-order-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 18px 40px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 8px 32px rgba(37,211,102,0.3);
+}
+.modal-order-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(37,211,102,0.5);
+}
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #f5f5f5;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: none;
+  transition: background 0.3s, transform 0.3s;
+  z-index: 10;
+}
+.modal-close:hover {
+  background: rgba(255,77,109,0.2);
+  transform: rotate(90deg);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  background: rgba(5,5,5,0.6);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: #e8c87a;
+  letter-spacing: 3px;
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(240,240,240,0.6);
+  text-decoration: none;
+  transition: color 0.3s;
+  cursor: none;
+}
+.nav-links a:hover { color: #e8c87a; }
+.nav-cta {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #e8c87a, #d4b060);
+  color: #050505;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 20px rgba(232,200,122,0.2);
+}
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(232,200,122,0.35);
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  html, body { overflow-x: auto; overflow-y: hidden; }
+  .horizontal-scroll-container {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    width: max-content;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+  }
+  .section { scroll-snap-align: start; }
+  .features-section { width: 80vw; min-width: unset; }
+  .contact-section { width: 80vw; min-width: unset; }
+  .footer-section { width: 60vw; min-width: unset; }
+  .gallery-section { padding: 0 2rem; }
+  .gallery-track { gap: 1.5rem; }
+  .poster-card { width: 260px; }
+  .modal-content { flex-direction: column; }
+  .modal-image { width: 100%; min-height: 250px; }
+  .modal-details { width: 100%; padding: 1.5rem; }
+  .modal-name { font-size: 1.8rem; }
+  .navbar { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+}
+@media (max-width: 768px) {
+  .hero-title { font-size: 3.5rem; }
+  .features-grid { grid-template-columns: 1fr; }
+  .poster-card { width: 240px; }
+  .contact-links { flex-direction: column; width: 100%; }
+  .contact-btn { width: 100%; justify-content: center; }
+}
+
+/* ===== HIDE SCROLLBAR ===== */
+.horizontal-scroll-container::-webkit-scrollbar { display: none; }
+.horizontal-scroll-container { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+</head>
+<body>
+
+<!-- NOISE OVERLAY -->
+<div class="noise-overlay">
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+  </svg>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="custom-cursor" id="customCursor">
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="#" class="nav-logo">TA3LII9A</a>
+  <ul class="nav-links">
+    <li><a href="#hero">الرئيسية</a></li>
+    <li><a href="#features">المميزات</a></li>
+    <li><a href="#gallery">المجموعة</a></li>
+    <li><a href="#contact">تواصل معنا</a></li>
+  </ul>
+  <a href="https://wa.me/212658836033" target="_blank" class="nav-cta">اطلب الآن</a>
+</nav>
+
+<!-- HORIZONTAL SCROLL CONTAINER -->
+<div class="horizontal-scroll-container" id="horizontalScroll">
+
+  <!-- HERO SECTION -->
+  <section class="section hero-section" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">بوستيرات فاخرة بطباعة Ultra-HD</div>
+      <h1 class="hero-title">
+        TA3LII9A
+        <span>فنّك على حائطك</span>
+      </h1>
+      <p class="hero-subtitle">
+        بوستيرات مطبوعة بجودة سينمائية على ورق فاخر، بتصاميم فريدة من الأنمي والرياضة والمسلسلات والموسيقى. توصيل سريع وآمن إلى جميع مدن المغرب مع الدفع عند الاستلام.
+      </p>
+      <a href="https://wa.me/212658836033" target="_blank" class="hero-cta">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        اطلب عبر واتساب
+      </a>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>اسحب للتنقل</span>
+      <div class="arrow"></div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="section features-section" id="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">طباعة Ultra-HD فاخرة</div>
+        <div class="feature-desc">طباعة احترافية بدقة سينمائية على ورق فاخر يضمن ألواناً نابضة وحادة تدوم لسنوات.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <div class="feature-title">سعر موحد 70 درهم</div>
+        <div class="feature-desc">سعر تنافسي وموحد لجميع البوستيرات — جودة فاخرة بسعر في متناول الجميع.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <div class="feature-title">تغليف آمن وسريع</div>
+        <div class="feature-desc">تغليف احترافي يحمي البوستير أثناء النقل مع توصيل سريع إلى جميع مدن المغرب.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <div class="feature-title">الدفع عند الاستلام</div>
+        <div class="feature-desc">اطلب بثقة — ادفع عند استلام طلبك مباشرة، بدون أي مخاطر أو تعقيدات.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section class="section gallery-section" id="gallery">
+    <div>
+      <div class="gallery-header">
+        <h2>مجموعتنا <span>الفاخرة</span></h2>
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all">الكل</button>
+          <button class="filter-btn" data-filter="anime">أنمي</button>
+          <button class="filter-btn" data-filter="sport">رياضة</button>
+          <button class="filter-btn" data-filter="series">مسلسلات</button>
+          <button class="filter-btn" data-filter="music">موسيقى</button>
+        </div>
+      </div>
+      <div class="gallery-track" id="galleryTrack"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section contact-section" id="contact">
+    <h2>تواصل <span>معنا</span></h2>
+    <p class="contact-desc">
+      جاهزون لاستقبال طلباتكم على مدار الساعة. تواصلوا معنا مباشرة عبر واتساب أو انستغرام للاستفسار أو الطلب.
+    </p>
+    <div class="contact-links">
+      <a href="https://wa.me/212658836033" target="_blank" class="contact-btn whatsapp">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        واتساب: +212 658 836 033
+      </a>
+      <a href="https://instagram.com/7ess_n1" target="_blank" class="contact-btn instagram">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        @7ess_n1
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER SECTION -->
+  <section class="section footer-section" id="footer">
+    <div class="footer-logo">TA3LII9A</div>
+    <div class="footer-tagline">بوستيرات فاخرة — فنّك على حائطك</div>
+    <div class="footer-price">70 DH</div>
+    <div class="footer-price-label">سعر موحد لجميع البوستيرات</div>
+    <div class="footer-copy">© 2025 Ta3liii9a. جميع الحقوق محفوظة.</div>
+  </section>
+
+</div><!-- end horizontal-scroll-container -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">×</button>
+    <div class="modal-image">
+      <img src="" alt="" id="modalImg">
+    </div>
+    <div class="modal-details">
+      <div class="modal-cat" id="modalCat"></div>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <div class="modal-price" id="modalPrice"></div>
+      <a href="#" class="modal-order-btn" id="modalOrderBtn" target="_blank">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        اطلب الآن عبر واتساب
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== PRODUCT DATA =====
+const posters = [
+  { id: 2, name: "Anime Fighter", cat: "anime", catLabel: "Anime", price: "70 DH", img: "anime_toji.png", desc: "بوستير أنيمي بتصميم احترافي — شخصية قوية بأسلوب رسم ياباني فريد." },
+  { id: 3, name: "Maldini — AC Milan", cat: "sport", catLabel: "رياضة", price: "70 DH", img: "maldini.png", desc: "بوستير الأسطورة باولو مالديني مع نادي AC Milan — هدية مثالية لعشاق كرة القدم.", isNew: true },
+  { id: 4, name: "Alice in Borderland", cat: "series", catLabel: "مسلسلات", price: "70 DH", img: "alice_in_borderland.png", desc: "بوستير مسلسل Alice in Borderland من نتفليكس — تصميم درامي مميز." },
+  { id: 5, name: "The Morphine Show", cat: "music", catLabel: "موسيقى", price: "70 DH", img: "mpsy.png", desc: "بوستير ألبوم The Morphine Show لـ Morphine M-PSY — مصدر إلهام لعشاق الراب." }
+];
+
+// ===== RENDER GALLERY =====
+const galleryTrack = document.getElementById('galleryTrack');
+
+function renderGallery(filter = 'all') {
+  galleryTrack.innerHTML = '';
+  const filtered = filter === 'all' ? posters : posters.filter(p => p.cat === filter);
+  filtered.forEach(poster => {
+    const card = document.createElement('div');
+    card.className = 'poster-card';
+    card.dataset.id = poster.id;
+    card.innerHTML = `
+      <div class="poster-card-inner">
+        <div class="poster-image-wrap">
+          ${poster.isNew ? '<div class="poster-new-badge">جديد</div>' : ''}
+          <img src="${poster.img}" alt="${poster.name}" loading="lazy">
+          <div class="poster-overlay">
+            <div class="poster-overlay-text">${poster.desc}</div>
+          </div>
+        </div>
+        <div class="poster-info">
+          <div class="poster-cat">${poster.catLabel}</div>
+          <div class="poster-name">${poster.name}</div>
+          <div class="poster-price">${poster.price} <span>شامل التوصيل</span></div>
+        </div>
+      </div>
+    `;
+    galleryTrack.appendChild(card);
+    initTilt(card);
+    card.addEventListener('click', () => openModal(poster));
+  });
+}
+renderGallery();
+
+// ===== FILTER TABS =====
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGallery(btn.dataset.filter);
+  });
+});
+
+// ===== MODAL =====
+const modalOverlay = document.getElementById('modalOverlay');
+const modalImg = document.getElementById('modalImg');
+const modalCat = document.getElementById('modalCat');
+const modalName = document.getElementById('modalName');
+const modalDesc = document.getElementById('modalDesc');
+const modalPrice = document.getElementById('modalPrice');
+const modalOrderBtn = document.getElementById('modalOrderBtn');
+const modalClose = document.getElementById('modalClose');
+
+function openModal(poster) {
+  modalImg.src = poster.img;
+  modalImg.alt = poster.name;
+  modalCat.textContent = poster.catLabel;
+  modalName.textContent = poster.name;
+  modalDesc.textContent = poster.desc;
+  modalPrice.textContent = poster.price;
+  const msg = encodeURIComponent(`مرحباً، أريد طلب بوستير: ${poster.name} (${poster.catLabel}) — السعر: ${poster.price}`);
+  modalOrderBtn.href = `https://wa.me/212658836033?text=${msg}`;
+  modalOverlay.classList.add('active');
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('active');
+}
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ===== 3D TILT EFFECT =====
+function initTilt(card) {
+  const inner = card.querySelector('.poster-card-inner');
+  const imageWrap = card.querySelector('.poster-image-wrap');
+  
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -12;
+    const rotateY = ((x - centerX) / centerX) * 12;
+    
+    inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    
+    const shadowX = ((x - centerX) / centerX) * -20;
+    const shadowY = ((y - centerY) / centerY) * -20 + 20;
+    inner.style.boxShadow = `${shadowX}px ${shadowY}px 60px rgba(0,0,0,0.5), 0 0 60px rgba(232,200,122,0.08)`;
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    inner.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    inner.style.boxShadow = 'none';
+    inner.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1), box-shadow 0.6s ease';
+    setTimeout(() => {
+      inner.style.transition = 'transform 0.1s ease-out, box-shadow 0.4s';
+    }, 600);
+  });
+}
+
+// ===== CUSTOM CURSOR =====
+const customCursor = document.getElementById('customCursor');
+const cursorDot = customCursor.querySelector('.cursor-dot');
+const cursorRing = customCursor.querySelector('.cursor-ring');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+function updateCursor() {
+  const dx = mouseX - ringX;
+  const dy = mouseY - ringY;
+  ringX += dx * 0.15;
+  ringY += dy * 0.15;
+  cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+  cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+  requestAnimationFrame(updateCursor);
+}
+updateCursor();
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+// Hover detection for cursor
+document.querySelectorAll('a, button, .poster-card, .filter-btn, .modal-close, .nav-links a, .nav-cta, .hero-cta, .contact-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => customCursor.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => customCursor.classList.remove('hovering'));
+});
+
+// ===== HORIZONTAL SCROLL (Desktop) =====
+const container = document.getElementById('horizontalScroll');
+let isScrolling = false;
+let scrollTimeout;
+
+function isMobile() { return window.innerWidth <= 1024; }
+
+if (!isMobile()) {
+  document.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = e.deltaY || e.deltaX;
+    container.scrollLeft += delta;
+    
+    clearTimeout(scrollTimeout);
+    isScrolling = true;
+    scrollTimeout = setTimeout(() => { isScrolling = false; }, 150);
+  }, { passive: false });
+  
+  // Horizontal scroll with arrow keys
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') container.scrollLeft += 100;
+    if (e.key === 'ArrowLeft') container.scrollLeft -= 100;
+  });
+}
+
+// ===== SMOOTH SCROLL FOR NAV LINKS =====
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href').substring(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      container.scrollTo({ left: target.offsetLeft, behavior: 'smooth' });
+    }
+  });
+});
+
+// ===== NAV SCROLL INDICATOR =====
+const navLogo = document.querySelector('.nav-logo');
+navLogo.addEventListener('click', (e) => {
+  e.preventDefault();
+  container.scrollTo({ left: 0, behavior: 'smooth' });
+});
+
+// ===== PARALLAX BACKGROUND EFFECT =====
+const heroBg = document.querySelector('.hero-bg');
+document.addEventListener('mousemove', (e) => {
+  if (!isMobile() && heroBg) {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    heroBg.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+  }
+});
+
+// ===== ENTRANCE ANIMATIONS =====
+const observerOptions = { threshold: 0.2 };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.feature-card, .poster-card, .contact-btn').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+  observer.observe(el);
+});
+
+// ===== RE-INIT CURSOR HOVER ON DYNAMIC ELEMENTS =====
+function refreshCursorHover() {
+  document.querySelectorAll('a, button, .poster-card, .filter-btn, .modal-close, .nav-links a, .nav-cta, .hero-cta, .contact-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => customCursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => customCursor.classList.remove('hovering'));
+  });
+}
+</script>
+</body>
+</html>'''
+
+with open('/mnt/agents/output/me.html', 'w', encoding='utf-8') as f:
+    f.write(html_code)
+
+print("File saved successfully!")
+print(f"Total characters: {len(html_code)}")
